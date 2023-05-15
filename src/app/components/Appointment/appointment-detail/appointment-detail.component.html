@@ -1,0 +1,36 @@
+<div class="container">
+    <table class="table table-striped table-hover">
+        <thead class="table-success">
+            <tr>
+                <th scope="col">Appointment ID</th>
+                <th scope="col">Patient ID</th>
+                <th scope="col">Doctor ID</th>
+                <th scope="col">Appointment Date</th>
+                <th scope="col">Appointment Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let appointment of Appointment; let i = index">
+                <td>{{ appointment.AppointmentID }}</td>
+                <td>{{ appointment.PatientID }}</td>
+                <td>{{ appointment.DoctorID }}</td>
+                <td>{{ appointment.AppointmentDate | date }}</td>
+                <td>{{ appointment.AppointmentStatus }}</td>
+
+                <td class="edit-block">
+                    <!-- <span
+              class="edit"
+              [routerLink]="'/employee/edit/'+ employee.empid"
+            >
+              <button type="button" class="btn btn-success btn-sm me-2">
+                Edit
+              </button>
+            </span>
+            <span class="delete" (click)="DeleteEmployeeDetail(employee, i)">
+              <button type="button" class="btn btn-danger btn-sm">Delete</button>
+            </span> -->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

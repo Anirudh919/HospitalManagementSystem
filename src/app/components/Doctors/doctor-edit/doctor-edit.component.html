@@ -1,0 +1,71 @@
+<div class="row justify-content-center">
+    <div class="register-employee">
+
+        <div class="card card-outline-secondary">
+            <div class="card-header">
+                <h3 class="mb-0">Edit Employee</h3>
+            </div>
+            <div class="container">
+                <form class="row g-3" [formGroup]="editForm" (ngSubmit)="onSubmit()">
+                    <div class="col-md-6">
+                        <label for="inputename" class="form-label">Doctor Name</label>
+                        <input type="text" class="form-control" formControlName="DoctorName" />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputJobid" class="form-label">Address</label>
+                        <input type="text" class="form-control" formControlName="Address">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="inputmanger Id" class="form-label">Phone Number</label>
+                        <input type="number" class="form-control" formControlName="PhoneNumber" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="inputhiredate" class="form-label">Email</label>
+                        <input type="email" class="form-control" formControlName="Email" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="inputSalary" class="form-label">Gender</label>
+                        <select class="form-control" formControlName="Gender">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="inputcomission" class="form-label">Date Of Birth</label>
+                        <input type="text" class="form-control" formControlName="DateOfBirth" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="inputDepartment ID " class="form-label">Specialization
+                        </label>
+                        <select class="form-control" formControlName="Specialization">
+                            <option value="10">Accounting</option>
+                            <option value="20">Research</option>
+                            <option value="30">Marketing</option>
+                            <option value="40">IT</option>
+                            <option value="50">Operation</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="inputcomission" class="form-label">Experience</label>
+                        <input type="number" class="form-control" formControlName="Experience" />
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-success btn-lg btn-block" type="submit">
+                            Update
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>

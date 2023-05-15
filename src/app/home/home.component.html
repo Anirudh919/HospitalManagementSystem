@@ -1,0 +1,60 @@
+<nav class="navbar navbar-expand-lg text-bg-info fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bolder" href="#">Hospital Management System</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse flex-row-reverse " id="navbarNav">
+            <ul class="navbar-nav ">
+                <li class="nav-item fs-5 fw-bolder" *ngIf="!isLogin">
+                    <a class="nav-link " routerLink="patient">Patients</a>
+                </li>
+
+                <li class="nav-item fs-5 fw-bolder" *ngIf="!isLogin">
+                    <a class="nav-link" routerLink="doctor">Doctors</a>
+                </li>
+                <li class="nav-item fs-5 fw-bolder" *ngIf="!isLogin">
+                    <a class="nav-link" routerLink="appointment">Appointments</a>
+                </li>
+                <li class="nav-item fs-5 fw-bolder" *ngIf="!isLogin">
+                    <a class="nav-link" href="addappointment">Add New Appointment</a>
+                </li>
+                <li class="nav-item fs-5 fw-bolder" *ngIf="isLogin">
+                    <a class="nav-link " routerLink="login">Login</a>
+                </li>
+                <li class="nav-item fs-5 fw-bolder" style="cursor: pointer;">
+                    <a class="nav-link " (click)="logout()">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<swiper [config]="config">
+
+    <div class="swiper-wrapper">
+        <div class="swiper-slide "><img src="../../assets/slidone.jpg" class="img-fluid d-block w-100"
+                style="display: flex;" alt="img 1">
+        </div>
+        <div class="swiper-slide "><img src="../../assets/slidtwo.jpg" class="img-fluid d-block w-100" alt="img 2">
+        </div>
+        <div class="swiper-slide "><img src="../../assets/slidthree.jpg" class="img-fluid d-block w-100" alt="img 3">
+        </div>
+
+    </div>
+
+    <div class="swiper-pagination"></div>
+
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+</swiper>
+<!-- <swiper [config]="config">
+    <div class="swiper-wrapper">
+        <img class="swiper-slide" *ngFor="let image of Images" [src]="image" />
+    </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+</swiper> -->
+
+<router-outlet></router-outlet>

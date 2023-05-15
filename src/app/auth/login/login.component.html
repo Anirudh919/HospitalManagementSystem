@@ -1,0 +1,27 @@
+<div class="wrapper fadeInDown">
+    <div *ngIf="Data" class="alert alert-danger" role="alert">
+        {{Data}}
+    </div>
+    <div id="formContent">
+        <!-- Tabs Titles -->
+        <h2 class="active"> Sign In </h2>
+
+
+        <!-- Icon -->
+        <div class="fadeIn first">
+
+        </div>
+
+        <!-- Login Form -->
+        <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+            <input type="text" id="login" class="fadeIn second" name="username" placeholder="username" required ngModel>
+            <input type="text" id="password" class="fadeIn third" name="password" placeholder="password" required
+                ngModel>
+            <input type="submit" class="fadeIn fourth" value="Log In">
+        </form>
+
+        <!-- Remind Passowrd -->
+
+        <h2 class="inactive underlineHover" routerLink="/register">Sign Up </h2>
+    </div>
+</div>

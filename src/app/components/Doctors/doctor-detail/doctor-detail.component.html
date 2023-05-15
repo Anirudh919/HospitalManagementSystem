@@ -1,0 +1,41 @@
+<div class="container">
+  <table class="table table-striped table-hover">
+    <thead class="table-success">
+      <tr>
+        <th scope="col">Doctor ID</th>
+        <th scope="col">Doctor Name</th>
+        <th scope="col">Address</th>
+        <th scope="col">PhoneNumber</th>
+        <th scope="col">Email</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Date Of Birth</th>
+        <th scope="col">Specialization</th>
+        <th scope="col">Experience</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let doctor of Doctors; let i = index">
+        <td>{{ doctor.DoctorID }}</td>
+        <td>{{ doctor.DoctorName }}</td>
+        <td>{{ doctor.Address }}</td>
+        <td>{{ doctor.PhoneNumber }}</td>
+        <td> {{ doctor.Email }}</td>
+        <td>{{ doctor.Gender }}</td>
+        <td>{{ doctor.DateOfBirth | date}}</td>
+        <td>{{ doctor.Specialization }}</td>
+        <td>{{ doctor.Experience }}</td>
+        <td class="edit-block">
+          <span class="edit" [routerLink]="'/employee/edit/'+ doctor.DoctorID">
+            <button type="button" class="btn btn-success btn-sm me-2">
+              Edit
+            </button>
+          </span>
+          <span class="delete" (click)="DeleteDoctorDetail(doctor, i)">
+            <button type="button" class="btn btn-danger btn-sm">Delete</button>
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

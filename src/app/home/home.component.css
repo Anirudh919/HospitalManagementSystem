@@ -1,0 +1,11 @@
+swiper {
+  
+   justify-content: center;
+ display: flex;
+ align-items: center;
+  }
+  img{
+   width: auto;
+   height: 500px;
+  }
+  
