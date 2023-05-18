@@ -46,6 +46,16 @@ router.get("/doctorsdetail", async (req, res) => {
   }
 });
 
+router.get("/doctorsdetailofappointment", async (req, res) => {
+  try {
+    let result = await db.DoctorsDetailofAppointment();
+    console.log(result);
+    res.json(result);
+  } catch (e) {
+    res.sendStatus(500);
+  }
+});
+
 router.get("/appointmentsdetail", async (req, res) => {
   try {
     let result = await db.AppointmentssDetail();
@@ -65,7 +75,25 @@ router.post("/addpatient", async (req, res) => {
   }
 });
 
-router.delete("/doctordelete/:id", async (req, res) => {
+router.get("/patient/:id", async (req, res) => {
+  try {
+    let result = await db.Patientgetid(req.params.id);
+    res.json(result);
+  } catch (err) {
+    res.sendStatus(500);
+  }
+});
+
+router.get("/doctor/:id", async (req, res) => {
+  try {
+    let result = await db.Doctorgetid(req.params.id);
+    res.json(result);
+  } catch (err) {
+    res.sendStatus(500);
+  }
+});
+
+router.put("/doctordelete/:id", async (req, res) => {
   try {
     const { id } = req.params;
     let result = await db.DoctorDelete(id);
@@ -73,6 +101,39 @@ router.delete("/doctordelete/:id", async (req, res) => {
   } catch (err) {
     console.log(err);
 
+    res.sendStatus(500);
+  }
+});
+
+router.delete("/patientdelete/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    let result = await db.PatientDelete(id);
+    res.json(result);
+  } catch (err) {
+    console.log(err);
+
+    res.sendStatus(500);
+  }
+});
+
+router.delete("/appointmentdelete/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    let result = await db.AppointmentDelete(id);
+    res.json(result);
+  } catch (err) {
+    console.log(err);
+
+    res.sendStatus(500);
+  }
+});
+
+router.put("/PatientUpdate", async (req, res) => {
+  try {
+    let result = await db.UpdatePatient(req.body);
+    res.json(result);
+  } catch (err) {
     res.sendStatus(500);
   }
 });

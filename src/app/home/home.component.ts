@@ -10,9 +10,9 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-isLogin:boolean=false;
+  isLogin: boolean = false;
 
-  constructor(private _auth:AuthService,private _router:Router,private _route:ActivatedRoute){}
+  constructor(private _auth: AuthService, private _router: Router, private _route: ActivatedRoute) { }
 
 
   Images: Array<object> = [
@@ -25,22 +25,23 @@ isLogin:boolean=false;
     }, {
       src: '../../assets/slidthree.jpg',
       alt: 'Image 3'
-    }   
+    }
   ]
   config: SwiperOptions = {
-    pagination: { 
-      el: '.swiper-pagination', 
-      clickable: true 
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true
     },
     navigation: {
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev'
     },
     spaceBetween: 20
-  }; 
+  };
 
   logout() {
     this._auth.clearStorage();
-    this._router.navigate(['login']), { relativeTo: this._route };
+    this.isLogin = true;
+    this._router.navigate(['home']), { relativeTo: this._route };
   }
 }

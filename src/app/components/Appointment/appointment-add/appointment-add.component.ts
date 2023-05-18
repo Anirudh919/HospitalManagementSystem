@@ -7,25 +7,25 @@ import { ServiceService } from 'src/app/service/service.service';
   templateUrl: './appointment-add.component.html',
   styleUrls: ['./appointment-add.component.css']
 })
-export class AppointmentAddComponent implements OnInit{
+export class AppointmentAddComponent implements OnInit {
 
   submitted = false;
-  DoctorDetail:any=[];
- 
-  AppointmentForm = this.Form.group({
-    PatientID:[''],
-    Address:[''],
-    PhoneNumber:[''],
-    Gender:[''],
-    DateOfBirth:[''],
-    DoctorID:[''],
-    AppointmentDate:[''],
-    AppointmentTime:['']
-  })
-  ngZone:any;
-  router:any;
+  DoctorDetail: any = [];
 
-  constructor(private _api:ServiceService,private Form:FormBuilder){
+  AppointmentForm = this.Form.group({
+    PatientID: [''],
+    Address: [''],
+    PhoneNumber: [''],
+    Gender: [''],
+    DateOfBirth: [''],
+    DoctorID: [''],
+    AppointmentDate: [''],
+    AppointmentTime: ['']
+  })
+  ngZone: any;
+  router: any;
+
+  constructor(private _api: ServiceService, private Form: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -49,9 +49,9 @@ export class AppointmentAddComponent implements OnInit{
     // }
   }
 
-  ReadDoctor(){
-  this._api.DoctorsDetail().subscribe((data:any)=>{
-  this.DoctorDetail = data;
-})
+  ReadDoctor() {
+    this._api.DoctorsDetailOfAppointment().subscribe((data: any) => {
+      this.DoctorDetail = data;
+    })
   }
 }

@@ -11,6 +11,7 @@
         <th scope="col">Date Of Birth</th>
         <th scope="col">Specialization</th>
         <th scope="col">Experience</th>
+        <th scope="col">Job Status</th>
         <th scope="col">Action</th>
       </tr>
     </thead>
@@ -25,8 +26,9 @@
         <td>{{ doctor.DateOfBirth | date}}</td>
         <td>{{ doctor.Specialization }}</td>
         <td>{{ doctor.Experience }}</td>
+        <td>{{doctor.JobStatus}}</td>
         <td class="edit-block">
-          <span class="edit" [routerLink]="'/employee/edit/'+ doctor.DoctorID">
+          <span class="edit" [routerLink]="'/doctor/edit/'+ doctor.DoctorID">
             <button type="button" class="btn btn-success btn-sm me-2">
               Edit
             </button>

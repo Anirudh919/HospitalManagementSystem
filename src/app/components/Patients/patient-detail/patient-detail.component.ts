@@ -6,12 +6,12 @@ import { ServiceService } from 'src/app/service/service.service';
   templateUrl: './patient-detail.component.html',
   styleUrls: ['./patient-detail.component.css']
 })
-export class PatientDetailComponent implements OnInit{
+export class PatientDetailComponent implements OnInit {
 
-  Patients :any=[];
-  constructor(private _api:ServiceService){}
+  Patients: any = [];
+  constructor(private _api: ServiceService) { }
 
-  ngOnInit(): void{
+  ngOnInit(): void {
     this.ReadPatient();
   }
 
@@ -22,5 +22,8 @@ export class PatientDetailComponent implements OnInit{
       console.log(this.Patients);
     });
   }
+
+
+
 
 }

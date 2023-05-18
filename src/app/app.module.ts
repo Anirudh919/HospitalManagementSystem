@@ -16,6 +16,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppointmentDetailComponent } from './components/Appointment/appointment-detail/appointment-detail.component';
 import { AppointmentAddComponent } from './components/Appointment/appointment-add/appointment-add.component';
+import { DatePipe } from '@angular/common';
+import { FrontViewComponent } from './front-view/front-view.component';
+
 
 @NgModule({
   declarations: [
@@ -29,7 +32,9 @@ import { AppointmentAddComponent } from './components/Appointment/appointment-ad
     PatientEditComponent,
     PatientDetailComponent,
     AppointmentDetailComponent,
-    AppointmentAddComponent
+    AppointmentAddComponent,
+    FrontViewComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -39,7 +44,7 @@ import { AppointmentAddComponent } from './components/Appointment/appointment-ad
     ReactiveFormsModule,
     NgxUsefulSwiperModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

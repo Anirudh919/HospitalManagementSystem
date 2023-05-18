@@ -78,12 +78,15 @@ rootdb.register = (input) => {
 
 rootdb.PatientsDetail = () => {
   return new Promise((resolve, reject) => {
-    pool.query(`select * from Patients`, (err, result) => {
-      if (err) {
-        return reject(err);
+    pool.query(
+      `select * from Patients p inner join Appointments a on p.PatientID=a.PatientID where AppointmentStatus = "Scheduled"`,
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
       }
-      return resolve(result);
-    });
+    );
   });
 };
 
@@ -98,19 +101,36 @@ rootdb.DoctorsDetail = () => {
   });
 };
 
+rootdb.DoctorsDetailofAppointment = () => {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      `select * from Doctors where JobStatus = "unfire"`,
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};
+
 rootdb.AppointmentssDetail = () => {
   return new Promise((resolve, reject) => {
-    pool.query(`select * from Appointments`, (err, result) => {
-      if (err) {
-        return reject(err);
+    pool.query(
+      `select * from Appointments where AppointmentStatus = "Scheduled"`,
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
       }
-      return resolve(result);
-    });
+    );
   });
 };
 
 rootdb.AddPatient = (input) => {
-  var sql = `insert into employee(empid,ename,jobid,mgrid,hiredate,salary,comission,deptid)
+  var sql = `insert into Patients(empid,ename,jobid,mgrid,hiredate,salary,comission,deptid)
   values(?,?,?,?,?,?,?,?)`;
   return new Promise((resolve, reject) => {
     pool.query(
@@ -137,7 +157,22 @@ rootdb.AddPatient = (input) => {
 
 rootdb.DoctorDelete = (id) => {
   return new Promise((resolve, reject) => {
-    pool.query(`delete from Doctors where DoctorID=?`, [id], (err) => {
+    pool.query(
+      `update Doctors set JobStatus = "fire" where DoctorID=? `,
+      [id],
+      (err) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve("Successfully Employee Details Delete");
+      }
+    );
+  });
+};
+
+rootdb.PatientDelete = (id) => {
+  return new Promise((resolve, reject) => {
+    pool.query(`delete from Patients where PatientID=? `, [id], (err) => {
       if (err) {
         return reject(err);
       }
@@ -146,8 +181,77 @@ rootdb.DoctorDelete = (id) => {
   });
 };
 
+rootdb.AppointmentDelete = (id) => {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      `delete from Appointments where AppointmentID=?`,
+      [id],
+      (err) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve("Successfully Employee Details Delete");
+      }
+    );
+  });
+};
+
+rootdb.Patientgetid = (id) => {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      `select * from Patients where PatientID=?`,
+      [id],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};
+
+rootdb.Doctorgetid = (id) => {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      `select * from Doctors where DoctorID=?`,
+      [id],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};
+
+rootdb.UpdatePatient = (input) => {
+  var sql = `update Patients set PatientName =?, Address=?,PhoneNumber=?,Email=?,Gender=?,DateofBirth=? where PatientID=?`;
+  return new Promise((resolve, reject) => {
+    pool.query(
+      sql,
+      [
+        input.PatientName,
+        input.Address,
+        input.PhoneNumber,
+        input.Email,
+        input.Gender,
+        input.DateofBirth,
+        input.PatientID,
+      ],
+      (err) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve("Successfull Update");
+      }
+    );
+  });
+};
+
 rootdb.UpdateDoctor = (input) => {
-  var sql = `update employee set DoctorName =?, Address=?,PhoneNumber=?,Email=?,Gender=?,DateofBirth=?,Specialization=?,Experience=? where DoctorID=?`;
+  var sql = `update Doctors set DoctorName =?, Address=?,PhoneNumber=?,Email=?,Gender=?,DateofBirth=?,Specialization=?,Experience=?,JobStatus=? where DoctorID=?`;
   return new Promise((resolve, reject) => {
     pool.query(
       sql,
@@ -160,6 +264,7 @@ rootdb.UpdateDoctor = (input) => {
         input.DateofBirth,
         input.Specialization,
         input.Experience,
+        input.JobStatus,
         input.DoctorID,
       ],
       (err) => {
