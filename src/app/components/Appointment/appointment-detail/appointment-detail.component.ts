@@ -9,16 +9,33 @@ import { ServiceService } from 'src/app/service/service.service';
 export class AppointmentDetailComponent implements OnInit {
 
   Appointment: any = [];
+  Doctor: any = [];
+  Patient: any = [];
+
   constructor(private _api: ServiceService) { }
 
   ngOnInit(): void {
     this.ReadAppointment();
+    this.ReadPatientID();
+    this.ReadDoctor();
   }
 
   ReadAppointment() {
     this._api.AppointmentsDetail().subscribe((data: any) => {
       this.Appointment = data;
       console.log(this.Appointment);
+    })
+  }
+
+  ReadPatientID() {
+    this._api.PatientsDetailbyID().subscribe((data: any) => {
+      this.Patient = data;
+    })
+  }
+
+  ReadDoctor() {
+    this._api.DoctorsDetailbyID().subscribe(data => {
+      this.Doctor = data;
     })
   }
 

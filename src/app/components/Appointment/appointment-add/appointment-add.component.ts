@@ -13,7 +13,7 @@ export class AppointmentAddComponent implements OnInit {
   DoctorDetail: any = [];
 
   AppointmentForm = this.Form.group({
-    PatientID: [''],
+    PatientName: [''],
     Address: [''],
     PhoneNumber: [''],
     Gender: [''],
@@ -33,20 +33,20 @@ export class AppointmentAddComponent implements OnInit {
   }
 
   onSubmit() {
-    // this.submitted = true;
-    // if (!this.AppointmentForm.valid) {
-    //   return false;
-    // } else {
-    //   return this._api.AddPatient(this.AppointmentForm.value).subscribe({
-    //     complete: () => {
-    //       console.log('Employee Successful Insert!!'),
-    //         this.ngZone.run(() => this.router.navigateByUrl('/appointment'));
-    //     },
-    //     error: (e) => {
-    //       console.log(e);
-    //     },
-    //   });
-    // }
+    this.submitted = true;
+    if (!this.AppointmentForm.valid) {
+      return false;
+    } else {
+      return this._api.AddPatient(this.AppointmentForm.value).subscribe({
+        complete: () => {
+
+          this.ngZone.run(() => this.router.navigateByUrl('/appointment'));
+        },
+        error: (e) => {
+          console.log(e);
+        },
+      });
+    }
   }
 
   ReadDoctor() {

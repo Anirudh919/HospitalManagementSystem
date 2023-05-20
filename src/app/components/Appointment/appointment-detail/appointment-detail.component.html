@@ -3,8 +3,8 @@
     <thead class="table-success">
       <tr>
         <th scope="col">Appointment ID</th>
-        <th scope="col">Patient ID</th>
-        <th scope="col">Doctor ID</th>
+        <th scope="col">Patient Name</th>
+        <th scope="col">Doctor Name</th>
         <th scope="col">Appointment Date</th>
         <th scope="col">Appointment Status</th>
         <th scope="col">Action</th>
@@ -13,8 +13,10 @@
     <tbody>
       <tr *ngFor="let appointment of Appointment; let i = index">
         <td>{{ appointment.AppointmentID }}</td>
-        <td>{{ appointment.PatientID }}</td>
-        <td>{{ appointment.DoctorID }}</td>
+
+        <td *ngFor="let patient of Patient">{{ patient.PatientName }}</td>
+
+        <td *ngFor="let doctor of Doctor">{{ doctor.DoctorName }}</td>
         <td>{{ appointment.AppointmentDate | date }}</td>
         <td>{{ appointment.AppointmentStatus }}</td>
 

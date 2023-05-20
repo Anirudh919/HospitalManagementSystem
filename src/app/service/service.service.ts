@@ -43,8 +43,16 @@ export class ServiceService {
     return this.http.get(`${this.baseUri}/patientsdetail`);
   }
 
+  PatientsDetailbyID() {
+    return this.http.get(`${this.baseUri}/patientsdetailbyid`);
+  }
+
   DoctorsDetail() {
     return this.http.get(`${this.baseUri}/doctorsdetail`);
+  }
+
+  DoctorsDetailbyID() {
+    return this.http.get(`${this.baseUri}/doctorsdetailbyid`);
   }
 
   DoctorsDetailOfAppointment() {
@@ -55,7 +63,10 @@ export class ServiceService {
     return this.http.get(`${this.baseUri}/appointmentsdetail`);
   }
 
-
+  AddPatient(data: any): Observable<any> {
+    let url = `${this.baseUri}/addpatient`;
+    return this.http.post(url, data).pipe(catchError(this.errorMgmt));
+  }
 
   Getdetaildoctor(id: any): Observable<any> {
     let url = `${this.baseUri}/doctor/${id}`;

@@ -36,9 +36,29 @@ router.get("/patientsdetail", async (req, res) => {
   }
 });
 
+router.get("/patientsdetailbyid", async (req, res) => {
+  try {
+    let result = await db.PatientsDetailbyID();
+    console.log(result);
+    res.json(result);
+  } catch (e) {
+    res.sendStatus(500);
+  }
+});
+
 router.get("/doctorsdetail", async (req, res) => {
   try {
     let result = await db.DoctorsDetail();
+    console.log(result);
+    res.json(result);
+  } catch (e) {
+    res.sendStatus(500);
+  }
+});
+
+router.get("/doctorsdetailbyid", async (req, res) => {
+  try {
+    let result = await db.DoctorsDetailbyID();
     console.log(result);
     res.json(result);
   } catch (e) {

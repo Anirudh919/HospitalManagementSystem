@@ -14,26 +14,34 @@ import { FrontViewComponent } from './front-view/front-view.component';
 
 
 const routes: Routes = [
-  {
-    path: '', component: HomeComponent, canActivate: [AuthGuardService], children: [
-      { path: 'frontview', component: FrontViewComponent },
-      { path: 'patient', component: PatientDetailComponent },
-      { path: 'patient/edit/:id', component: PatientEditComponent },
-      { path: 'doctor', component: DoctorDetailComponent },
-      { path: 'doctor/edit/:id', component: DoctorEditComponent },
-      { path: 'appointment', component: AppointmentDetailComponent },
-      { path: 'addappointment', component: AppointmentAddComponent },
-    ]
-  },
   // {
-  //   path: 'home', component: HomeComponent, children: [
-  //     { path: 'login', component: LoginComponent },
-  //     { path: 'register', component: RegisterComponent }
+  //   path: '', component: HomeComponent, canActivate: [AuthGuardService], children: [
+  //     { path: 'frontview', component: FrontViewComponent },
+  //     { path: 'patient', component: PatientDetailComponent },
+  //     { path: 'patient/edit/:id', component: PatientEditComponent },
+  //     { path: 'doctor', component: DoctorDetailComponent },
+  //     { path: 'doctor/edit/:id', component: DoctorEditComponent },
+  //     { path: 'appointment', component: AppointmentDetailComponent },
+  //     { path: 'addappointment', component: AppointmentAddComponent },
   //   ]
   // },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent }
-];
+  {
+    path: '', component: HomeComponent, canActivate: [AuthGuardService], children:
+      [
+        { path: 'patient', component: PatientDetailComponent },
+        { path: 'patient/edit/:id', component: PatientEditComponent },
+        { path: 'doctor', component: DoctorDetailComponent },
+        { path: 'doctor/edit/:id', component: DoctorEditComponent },
+        { path: 'appointment', component: AppointmentDetailComponent },
+        { path: 'addappointment', component: AppointmentAddComponent },],
+
+  },
+  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent }
+]
+
+// { path: 'login', component: LoginComponent },
+// { path: 'register', component: RegisterComponent }
 
 
 

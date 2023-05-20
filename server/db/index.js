@@ -1,6 +1,8 @@
 const mysql = require("mysql");
 const jwt = require("jsonwebtoken");
 
+// const { resolve } = require("@angular/compiler-cli");
+
 const pool = mysql.createPool({
   host: "localhost",
   user: "root",
@@ -90,6 +92,20 @@ rootdb.PatientsDetail = () => {
   });
 };
 
+rootdb.PatientsDetailbyID = () => {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      `select PatientName from Patients p inner join Appointments a on p.PatientID=a.PatientID Limit 1 `,
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};
+
 rootdb.DoctorsDetail = () => {
   return new Promise((resolve, reject) => {
     pool.query(`select * from Doctors`, (err, result) => {
@@ -98,6 +114,20 @@ rootdb.DoctorsDetail = () => {
       }
       return resolve(result);
     });
+  });
+};
+
+rootdb.DoctorsDetailbyID = () => {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      `select DoctorName from Doctors d inner join Appointments a on a.DOctorID=d.DoctorID Limit 1`,
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
   });
 };
 
@@ -129,29 +159,65 @@ rootdb.AppointmentssDetail = () => {
   });
 };
 
+// rootdb.AddPatient = (input) => {
+//   var sql1 = `insert into Patients(PatientName,Address,PhoneNumber,Gender,DateOfBirth)
+//   values(?,?,?,?,?)`;
+//   var inputForSql1 = [
+//     input.PatientName,
+//     input.Address,
+//     input.PhoneNumber,
+//     input.Gender,
+//     input.DateOfBirth,
+//   ];
+//   var sql2 = `select PatientID from Patients where PatientID=?`;
+//   var sql3 = `insert into Appointments(PatientID,DoctorID,AppointmentDate,AppointmentTime,AppointmentStatus)`;
+//   pool.query(sql1, inputForSql1, (err, result) => {
+//     if (err) {
+//       return reject(err);
+//     }
+//     console.log(result);
+//     console.log(result.insertId);
+//     return resolve(result, result.insertId, result.PatientID);
+//   });
+// };
+
 rootdb.AddPatient = (input) => {
-  var sql = `insert into Patients(empid,ename,jobid,mgrid,hiredate,salary,comission,deptid)
-  values(?,?,?,?,?,?,?,?)`;
+  var sql1 = `insert into Patients(PatientName,Address,PhoneNumber,Gender,DateOfBirth)
+  values(?,?,?,?,?)`;
+  var sql2 = `insert into Appointments(PatientID,DoctorID,AppointmentDate,AppointmentTime,AppointmentStatus)`;
+  var inputForSql1 = [
+    input.PatientName,
+    input.Address,
+    input.PhoneNumber,
+    input.Gender,
+    input.DateOfBirth,
+  ];
+  // var sqlInsert=
   return new Promise((resolve, reject) => {
-    pool.query(
-      sql,
-      [
-        input.empid,
-        input.ename,
-        input.jobid,
-        input.mgrid,
-        input.hiredate,
-        input.salary,
-        input.comission,
-        input.deptid,
-      ],
-      (err) => {
-        if (err) {
-          return reject(err);
-        }
-        return resolve("Employee Successfully Add");
+    pool.query(sql1, inputForSql1, (err, result) => {
+      if (err) {
+        return reject(err);
       }
-    );
+      // console.log(result.insertId);
+      pool.query(
+        sql2,
+        [
+          input.PatientID,
+          input.DoctorID,
+          input.AppointmentDate,
+          input.AppointmentTime,
+          input.AppointmentStatus,
+        ],
+        (err, result) => {
+          if (err) {
+            return reject(err);
+          }
+          resolve(result);
+        }
+      );
+
+      resolve(result);
+    });
   });
 };
 
