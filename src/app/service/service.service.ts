@@ -63,8 +63,8 @@ export class ServiceService {
     return this.http.get(`${this.baseUri}/appointmentsdetail`);
   }
 
-  AddPatient(data: any): Observable<any> {
-    let url = `${this.baseUri}/addpatient`;
+  AddAppointment(data: any): Observable<any> {
+    let url = `${this.baseUri}/addappointment`;
     return this.http.post(url, data).pipe(catchError(this.errorMgmt));
   }
 

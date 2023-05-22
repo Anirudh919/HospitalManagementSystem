@@ -11,16 +11,14 @@ export class AppointmentAddComponent implements OnInit {
 
   submitted = false;
   DoctorDetail: any = [];
+  PatientDetail: any = [];
 
   AppointmentForm = this.Form.group({
-    PatientName: [''],
-    Address: [''],
-    PhoneNumber: [''],
-    Gender: [''],
-    DateOfBirth: [''],
+    PatientID: [''],
     DoctorID: [''],
     AppointmentDate: [''],
-    AppointmentTime: ['']
+    AppointmentTime: [''],
+    AppointmentStatus: [''],
   })
   ngZone: any;
   router: any;
@@ -30,6 +28,7 @@ export class AppointmentAddComponent implements OnInit {
 
   ngOnInit(): void {
     this.ReadDoctor();
+    this.ReadPatient();
   }
 
   onSubmit() {
@@ -37,7 +36,7 @@ export class AppointmentAddComponent implements OnInit {
     if (!this.AppointmentForm.valid) {
       return false;
     } else {
-      return this._api.AddPatient(this.AppointmentForm.value).subscribe({
+      return this._api.AddAppointment(this.AppointmentForm.value).subscribe({
         complete: () => {
 
           this.ngZone.run(() => this.router.navigateByUrl('/appointment'));
@@ -47,6 +46,12 @@ export class AppointmentAddComponent implements OnInit {
         },
       });
     }
+  }
+
+  ReadPatient() {
+    this._api.PatientsDetail().subscribe(data => {
+      this.PatientDetail = data;
+    })
   }
 
   ReadDoctor() {

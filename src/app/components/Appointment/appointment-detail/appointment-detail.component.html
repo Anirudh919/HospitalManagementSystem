@@ -13,9 +13,7 @@
     <tbody>
       <tr *ngFor="let appointment of Appointment; let i = index">
         <td>{{ appointment.AppointmentID }}</td>
-
         <td *ngFor="let patient of Patient">{{ patient.PatientName }}</td>
-
         <td *ngFor="let doctor of Doctor">{{ doctor.DoctorName }}</td>
         <td>{{ appointment.AppointmentDate | date }}</td>
         <td>{{ appointment.AppointmentStatus }}</td>

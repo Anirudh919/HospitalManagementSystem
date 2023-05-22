@@ -1,8 +1,6 @@
 const mysql = require("mysql");
 const jwt = require("jsonwebtoken");
 
-// const { resolve } = require("@angular/compiler-cli");
-
 const pool = mysql.createPool({
   host: "localhost",
   user: "root",
@@ -134,7 +132,7 @@ rootdb.DoctorsDetailbyID = () => {
 rootdb.DoctorsDetailofAppointment = () => {
   return new Promise((resolve, reject) => {
     pool.query(
-      `select * from Doctors where JobStatus = "unfire"`,
+      `select * from Doctors where JobStatus = "UnFired"`,
       (err, result) => {
         if (err) {
           return reject(err);
@@ -144,6 +142,20 @@ rootdb.DoctorsDetailofAppointment = () => {
     );
   });
 };
+
+// end 1
+// return new Promise((resolve, reject) => {
+//   pool.query(
+//     `select * from Appointments where AppointmentStatus = "Scheduled"`,
+//     (err, result) => {
+//       if (err) {
+//         return reject(err);
+//       }
+//       return resolve(result);
+//     }
+//   );
+// });
+// };
 
 rootdb.AppointmentssDetail = () => {
   return new Promise((resolve, reject) => {
@@ -159,9 +171,33 @@ rootdb.AppointmentssDetail = () => {
   });
 };
 
+rootdb.AddAppointment = (input) => {
+  var sql = `insert into Appointments(PatientID,DoctorID,AppointmentDate,AppointmentTime,AppointmentStatus)
+  values(?,?,?,?,?)`;
+  return new Promise((resolve, reject) => {
+    pool.query(
+      sql,
+      [
+        input.PatientID,
+        input.DoctorID,
+        input.AppointmentDate,
+        input.AppointmentTime,
+        input.AppointmentStatus,
+      ],
+      (err) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve("Successfull Insert");
+      }
+    );
+  });
+};
+
 // rootdb.AddPatient = (input) => {
 //   var sql1 = `insert into Patients(PatientName,Address,PhoneNumber,Gender,DateOfBirth)
 //   values(?,?,?,?,?)`;
+//   var sql2 = `insert into Appointments(PatientID,DoctorID,AppointmentDate,AppointmentTime,AppointmentStatus)`;
 //   var inputForSql1 = [
 //     input.PatientName,
 //     input.Address,
@@ -169,57 +205,43 @@ rootdb.AppointmentssDetail = () => {
 //     input.Gender,
 //     input.DateOfBirth,
 //   ];
-//   var sql2 = `select PatientID from Patients where PatientID=?`;
-//   var sql3 = `insert into Appointments(PatientID,DoctorID,AppointmentDate,AppointmentTime,AppointmentStatus)`;
-//   pool.query(sql1, inputForSql1, (err, result) => {
-//     if (err) {
-//       return reject(err);
-//     }
-//     console.log(result);
-//     console.log(result.insertId);
-//     return resolve(result, result.insertId, result.PatientID);
+//   // var sqlInsert=
+//   return new Promise((resolve, reject) => {
+//     pool.query(sql1, inputForSql1, (err, result) => {
+//       var PatientID = result.insertId;
+//       if (err) {
+//         return reject(err);
+//       }
+//       // console.log(result.insertId);
+//       return new Promise((resolve,reject)=>{
+//         pool.query(
+//           sql2,
+//           [
+//             input.PatientID,
+//             input.DoctorID,
+//             input.AppointmentDate,
+//             input.AppointmentTime,
+//             input.AppointmentStatus,
+//           ],
+//           (err, result) => {
+//             if (err) {
+//               return reject(err);
+//             }
+//             resolve(true);
+//           }
+//         );
+//       })
+
+//       resolve(result);
+//     });
 //   });
 // };
 
-rootdb.AddPatient = (input) => {
-  var sql1 = `insert into Patients(PatientName,Address,PhoneNumber,Gender,DateOfBirth)
-  values(?,?,?,?,?)`;
-  var sql2 = `insert into Appointments(PatientID,DoctorID,AppointmentDate,AppointmentTime,AppointmentStatus)`;
-  var inputForSql1 = [
-    input.PatientName,
-    input.Address,
-    input.PhoneNumber,
-    input.Gender,
-    input.DateOfBirth,
-  ];
-  // var sqlInsert=
-  return new Promise((resolve, reject) => {
-    pool.query(sql1, inputForSql1, (err, result) => {
-      if (err) {
-        return reject(err);
-      }
-      // console.log(result.insertId);
-      pool.query(
-        sql2,
-        [
-          input.PatientID,
-          input.DoctorID,
-          input.AppointmentDate,
-          input.AppointmentTime,
-          input.AppointmentStatus,
-        ],
-        (err, result) => {
-          if (err) {
-            return reject(err);
-          }
-          resolve(result);
-        }
-      );
-
-      resolve(result);
-    });
-  });
-};
+// rootdb.AddPatient=(input)=>{
+//   return new Promise((resolve,reject)=>{
+//     pool.query
+//   })
+// }
 
 rootdb.DoctorDelete = (id) => {
   return new Promise((resolve, reject) => {

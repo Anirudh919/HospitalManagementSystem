@@ -86,9 +86,9 @@ router.get("/appointmentsdetail", async (req, res) => {
   }
 });
 
-router.post("/addpatient", async (req, res) => {
+router.put("/addappointment", async (req, res) => {
   try {
-    let result = await db.AddPatient(req.body);
+    let result = await db.AddAppointment(req.body);
     res.json(result);
   } catch (err) {
     res.sendStatus(500);

@@ -28,6 +28,7 @@ const routes: Routes = [
   {
     path: '', component: HomeComponent, canActivate: [AuthGuardService], children:
       [
+        { path: 'frontview', component: FrontViewComponent },
         { path: 'patient', component: PatientDetailComponent },
         { path: 'patient/edit/:id', component: PatientEditComponent },
         { path: 'doctor', component: DoctorDetailComponent },
@@ -36,6 +37,7 @@ const routes: Routes = [
         { path: 'addappointment', component: AppointmentAddComponent },],
 
   },
+  { path: '**', redirectTo: 'login' },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent }
 ]
