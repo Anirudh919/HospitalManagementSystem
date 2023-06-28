@@ -1,5 +1,6 @@
 const mysql = require("mysql");
 const jwt = require("jsonwebtoken");
+("use strict");
 
 const pool = mysql.createPool({
   host: "localhost",
@@ -93,7 +94,7 @@ rootdb.PatientsDetail = () => {
 rootdb.PatientsDetailbyID = () => {
   return new Promise((resolve, reject) => {
     pool.query(
-      `select PatientName from Patients p inner join Appointments a on p.PatientID=a.PatientID Limit 1 `,
+      `select PatientName from Patients p inner join Appointments a on p.PatientID=a.PatientID limit 1`,
       (err, result) => {
         if (err) {
           return reject(err);
@@ -107,6 +108,17 @@ rootdb.PatientsDetailbyID = () => {
 rootdb.DoctorsDetail = () => {
   return new Promise((resolve, reject) => {
     pool.query(`select * from Doctors`, (err, result) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(result);
+    });
+  });
+};
+
+rootdb.MedicalsDetail = () => {
+  return new Promise((resolve, reject) => {
+    pool.query(`select * from MedicalHistory`, (err, result) => {
       if (err) {
         return reject(err);
       }
@@ -160,7 +172,10 @@ rootdb.DoctorsDetailofAppointment = () => {
 rootdb.AppointmentssDetail = () => {
   return new Promise((resolve, reject) => {
     pool.query(
-      `select * from Appointments where AppointmentStatus = "Scheduled"`,
+      `select ap.AppointmentID as AppointmentID , p.PatientName as PatientName,d.DoctorName as DoctorName,ap.AppointmentDate as AppointmentDate
+      ,ap.AppointmentTime as AppointmentTime,ap.AppointmentStatus as AppointmentStatus
+       from Appointments ap inner join patients p on ap.PatientID = p.PatientID inner join doctors d on  ap.DoctorID =d.DoctorID
+       where ap.AppointmentStatus = "Scheduled";`,
       (err, result) => {
         if (err) {
           return reject(err);
@@ -194,54 +209,89 @@ rootdb.AddAppointment = (input) => {
   });
 };
 
-// rootdb.AddPatient = (input) => {
-//   var sql1 = `insert into Patients(PatientName,Address,PhoneNumber,Gender,DateOfBirth)
-//   values(?,?,?,?,?)`;
-//   var sql2 = `insert into Appointments(PatientID,DoctorID,AppointmentDate,AppointmentTime,AppointmentStatus)`;
-//   var inputForSql1 = [
-//     input.PatientName,
-//     input.Address,
-//     input.PhoneNumber,
-//     input.Gender,
-//     input.DateOfBirth,
-//   ];
-//   // var sqlInsert=
-//   return new Promise((resolve, reject) => {
-//     pool.query(sql1, inputForSql1, (err, result) => {
-//       var PatientID = result.insertId;
-//       if (err) {
-//         return reject(err);
-//       }
-//       // console.log(result.insertId);
-//       return new Promise((resolve,reject)=>{
-//         pool.query(
-//           sql2,
-//           [
-//             input.PatientID,
-//             input.DoctorID,
-//             input.AppointmentDate,
-//             input.AppointmentTime,
-//             input.AppointmentStatus,
-//           ],
-//           (err, result) => {
-//             if (err) {
-//               return reject(err);
-//             }
-//             resolve(true);
-//           }
-//         );
-//       })
+rootdb.AddFeedback = (input) => {
+  var sql = `insert into Feedbacks(username,Email,FeedbackMessage)
+  values(?,?,?)`;
+  return new Promise((resolve, reject) => {
+    pool.query(
+      sql,
+      [input.username, input.email, input.FeedbackMessage],
+      (err) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve("Successfull Insert");
+      }
+    );
+  });
+};
 
-//       resolve(result);
-//     });
+// rootdb.AddPatient = (input) => {
+//   var sql = `insert into Patients( PatientName,Address,PhoneNumber,Email,Gender,DateOfBirth)
+//   values(?,?,?,?,?,?)`;
+//   return new Promise((resolve, reject) => {
+//     pool.query(
+//       sql,
+//       [
+//         input.PatientName,
+//         input.Address,
+//         input.PhoneNumber,
+//         input.Email,
+//         input.Gender,
+//         input.DateOfBirth,
+//       ],
+//       (err) => {
+//         if (err) {
+//           return reject(err);
+//         }
+//         return resolve("Successfull Insert");
+//       }
+//     );
 //   });
 // };
 
-// rootdb.AddPatient=(input)=>{
-//   return new Promise((resolve,reject)=>{
-//     pool.query
-//   })
-// }
+rootdb.AddPatient = (input) => {
+  var sql1 = `insert into Patients(PatientName,Address,PhoneNumber,Gender,DateOfBirth)
+  values(?,?,?,?,?)`;
+  var sql2 = `insert into Appointments(PatientID,DoctorID,AppointmentDate,AppointmentTime,AppointmentStatus)
+   values(?,?,?,?,?)`;
+  var inputForSql1 = [
+    input.PatientName,
+    input.Address,
+    input.PhoneNumber,
+    input.Gender,
+    input.DateOfBirth,
+  ];
+
+  return new Promise((resolve, reject) => {
+    pool.query(sql1, inputForSql1, (err, result) => {
+      console.log(input);
+      if (err) {
+        return reject(err);
+      }
+      input.PatientID = result.insertId;
+      console.log(result.insertId);
+
+      pool.query(
+        sql2,
+        [
+          input.PatientID,
+          input.DoctorID,
+          input.AppointmentDate,
+          input.AppointmentTime,
+          input.AppointmentStatus,
+        ],
+        (err, result) => {
+          if (err) {
+            return reject(err);
+          }
+          console.log("second query", result);
+          return resolve(result);
+        }
+      );
+    });
+  });
+};
 
 rootdb.DoctorDelete = (id) => {
   return new Promise((resolve, reject) => {
@@ -315,7 +365,7 @@ rootdb.Doctorgetid = (id) => {
 };
 
 rootdb.UpdatePatient = (input) => {
-  var sql = `update Patients set PatientName =?, Address=?,PhoneNumber=?,Email=?,Gender=?,DateofBirth=? where PatientID=?`;
+  var sql = `update Patients set PatientName =?, Address=?,PhoneNumber=?,Email=?,Gender=?,DateOfBirth=? where PatientID=?`;
   return new Promise((resolve, reject) => {
     pool.query(
       sql,
@@ -325,7 +375,7 @@ rootdb.UpdatePatient = (input) => {
         input.PhoneNumber,
         input.Email,
         input.Gender,
-        input.DateofBirth,
+        input.DateOfBirth,
         input.PatientID,
       ],
       (err) => {
@@ -339,7 +389,7 @@ rootdb.UpdatePatient = (input) => {
 };
 
 rootdb.UpdateDoctor = (input) => {
-  var sql = `update Doctors set DoctorName =?, Address=?,PhoneNumber=?,Email=?,Gender=?,DateofBirth=?,Specialization=?,Experience=?,JobStatus=? where DoctorID=?`;
+  var sql = `update Doctors set DoctorName =?, Address=?,PhoneNumber=?,Email=?,Gender=?,DateOfBirth=?,Specialization=?,Experience=?,JobStatus=? where DoctorID=?`;
   return new Promise((resolve, reject) => {
     pool.query(
       sql,
@@ -349,7 +399,7 @@ rootdb.UpdateDoctor = (input) => {
         input.PhoneNumber,
         input.Email,
         input.Gender,
-        input.DateofBirth,
+        input.DateOfBirth,
         input.Specialization,
         input.Experience,
         input.JobStatus,
@@ -359,6 +409,7 @@ rootdb.UpdateDoctor = (input) => {
         if (err) {
           return reject(err);
         }
+        // console.log(result);
         return resolve("Successfull Update");
       }
     );

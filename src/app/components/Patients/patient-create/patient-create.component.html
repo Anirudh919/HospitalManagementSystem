@@ -1,68 +1,41 @@
-<!-- <div class="container">
-    <form class="row g-3" [formGroup]="EmployeeForm" (ngSubmit)="onSubmit()">
-      <div class="col-md-6">
-        <label for="inputename" class="form-label">Employee Name</label>
-        <input type="text" class="form-control" formControlName="ename" />
-      </div>
-      <div class="col-md-6">
-        <label for="inputJobid" class="form-label">Job ID</label>
-        <select class="form-control" formControlName="jobid">
-          <option *ngFor="let jobs of job" value="{{ jobs.job_id }}">
-            {{ jobs.job_title }}
-          </option>
-        </select>
-      </div>
-  
-      <div class="col-md-6">
-        <label for="inputmanger Id" class="form-label">Manager ID</label>
-        <select class="form-control" formControlName="jobid">
-          <option *ngFor="let mgrs of mgr" value="{{ mgrs.empid }}">
-            {{ mgrs.ename }}
-          </option>
-        </select>
-      </div>
-  
-      <div class="col-md-6">
-        <label for="inputhiredate" class="form-label">Hiredate</label>
-        <input type="date" class="form-control" formControlName="hiredate" />
-      </div>
-  
-      <div class="col-md-6">
-        <label for="inputSalary" class="form-label">Salary</label>
-        <input
-          type="number"
-          class="form-control"
-          id="inputCity"
-          formControlName="salary"
-        />
-      </div>
-  
-      <div class="col-md-6">
-        <label for="inputcomission" class="form-label">Comission</label>
-        <input type="number" class="form-control" formControlName="comission" />
-      </div>
-  
-      <div class="col-md-6">
-        <label for="inputDepartment ID " class="form-label">Department ID </label>
-        <select class="form-control" formControlName="deptid">
-          <option
-            *ngFor="let departments of department"
-            value="{{ departments.deptid }}"
-          >
-            {{ departments.dname }}
-          </option>
-        </select>
-      </div>
-  
-      <div class="col-12">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="gridCheck" />
-          <label class="form-check-label" for="gridCheck"> Check me out </label>
-        </div>
-      </div>
-      <div class="col-12">
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </div>
-    </form>
-  </div>
-   -->
+<div class="container">
+  <form class="row g-3" [formGroup]="PatientForm" (ngSubmit)="onSubmit()">
+    <div class="col-md-6">
+      <label for="inputename" class="form-label">Patient Name</label>
+      <input type="text" class="form-control" formControlName="PatientName" />
+    </div>
+    <div class="col-md-6">
+      <label for="inputJobid" class="form-label">Address</label>
+
+      <input type="text" class="form-control" formControlName="Address" />
+
+    </div>
+
+    <div class="col-md-6">
+      <label for="inputmanger Id" class="form-label">Phone Number</label>
+      <input type="text" class="form-control" formControlName="PhoneNumber" />
+    </div>
+
+    <div class="col-md-6">
+      <label for="inputhiredate" class="form-label">Email</label>
+      <input type="email" class="form-control" formControlName="Email" />
+    </div>
+
+    <div class="col-md-6">
+      <label for="inputSalary" class="form-label">Gender</label>
+      <select class="form-control" formControlName="Gender">
+        <option value="Male">Male </option>
+        <option value="Female">Female </option>
+      </select>
+    </div>
+
+    <div class="col-md-6">
+      <label for="inputcomission" class="form-label">DOB</label>
+      <input type="date" class="form-control" formControlName="DateOfBirth" />
+    </div>
+
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</div>

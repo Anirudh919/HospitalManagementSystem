@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ServiceService } from 'src/app/service/service.service';
 
 @Component({
@@ -14,16 +15,19 @@ export class AppointmentAddComponent implements OnInit {
   PatientDetail: any = [];
 
   AppointmentForm = this.Form.group({
-    PatientID: [''],
+    PatientName: [''],
+    Address: [''],
+    PhoneNumber: [''],
+    Gender: [''],
+    DateOfBirth: [''],
     DoctorID: [''],
     AppointmentDate: [''],
     AppointmentTime: [''],
     AppointmentStatus: [''],
   })
-  ngZone: any;
-  router: any;
 
-  constructor(private _api: ServiceService, private Form: FormBuilder) {
+
+  constructor(private _api: ServiceService, private Form: FormBuilder, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -38,8 +42,7 @@ export class AppointmentAddComponent implements OnInit {
     } else {
       return this._api.AddAppointment(this.AppointmentForm.value).subscribe({
         complete: () => {
-
-          this.ngZone.run(() => this.router.navigateByUrl('/appointment'));
+          this.router.navigateByUrl('/appointment');
         },
         error: (e) => {
           console.log(e);
@@ -58,5 +61,9 @@ export class AppointmentAddComponent implements OnInit {
     this._api.DoctorsDetailOfAppointment().subscribe((data: any) => {
       this.DoctorDetail = data;
     })
+  }
+
+  Clear() {
+    this.AppointmentForm.reset();
   }
 }

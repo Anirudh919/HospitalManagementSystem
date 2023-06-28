@@ -10,23 +10,26 @@
                 <li class="nav-item fs-5 fw-bolder">
                     <a class="nav-link " routerLink="frontview">Home</a>
                 </li>
-                <li class="nav-item fs-5 fw-bolder" *ngIf="!isLogin">
+                <li *ngIf="isLogin" class="nav-item fs-5 fw-bolder">
                     <a class="nav-link " routerLink="patient">Patients</a>
                 </li>
 
-                <li class="nav-item fs-5 fw-bolder" *ngIf="!isLogin">
+                <li *ngIf="isLogin" class="nav-item fs-5 fw-bolder">
                     <a class="nav-link" routerLink="doctor">Doctors</a>
                 </li>
-                <li class="nav-item fs-5 fw-bolder" *ngIf="!isLogin">
+                <li class="nav-item fs-5 fw-bolder" *ngIf="isLogin">
+                    <a class="nav-link" routerLink="addpatient">Add Patient</a>
+                </li>
+                <li *ngIf="isLogin" class="nav-item fs-5 fw-bolder">
                     <a class="nav-link" routerLink="appointment">Appointments</a>
                 </li>
-                <li class="nav-item fs-5 fw-bolder" *ngIf="!isLogin">
+                <li *ngIf="isLogin" class="nav-item fs-5 fw-bolder">
                     <a class="nav-link" routerLink="addappointment">Add New Appointment</a>
                 </li>
-                <li class="nav-item fs-5 fw-bolder" *ngIf="isLogin">
+                <li class="nav-item fs-5 fw-bolder" *ngIf="!isLogin">
                     <a class="nav-link " routerLink="login">Login</a>
                 </li>
-                <li class="nav-item fs-5 fw-bolder" *ngIf="!isLogin" style="cursor: pointer;">
+                <li class="nav-item fs-5 fw-bolder" *ngIf="isLogin" style="cursor: pointer;">
                     <a class="nav-link " (click)="logout()">Logout</a>
                 </li>
             </ul>

@@ -6,6 +6,7 @@
         <th scope="col">Patient Name</th>
         <th scope="col">Doctor Name</th>
         <th scope="col">Appointment Date</th>
+        <th scope="col">Appointment Time</th>
         <th scope="col">Appointment Status</th>
         <th scope="col">Action</th>
       </tr>
@@ -13,16 +14,18 @@
     <tbody>
       <tr *ngFor="let appointment of Appointment; let i = index">
         <td>{{ appointment.AppointmentID }}</td>
-        <td *ngFor="let patient of Patient">{{ patient.PatientName }}</td>
-        <td *ngFor="let doctor of Doctor">{{ doctor.DoctorName }}</td>
+        <td>{{ appointment.PatientName }}</td>
+        <td>{{ appointment.DoctorName }}</td>
         <td>{{ appointment.AppointmentDate | date }}</td>
+        <td>{{appointment.AppointmentTime}}</td>
         <td>{{ appointment.AppointmentStatus }}</td>
-
+        <!-- ek mijn ,ai aya -->
         <td class="edit-block">
           <span class="delete" (click)="DeleteAppointmentDetail(appointment, i)">
             <button type="button" class="btn btn-danger btn-sm">Delete</button>
           </span>
         </td>
+
       </tr>
     </tbody>
   </table>

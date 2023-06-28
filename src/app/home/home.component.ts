@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  isLogin: boolean = false;
+  isLogin: boolean = true;
 
   constructor(private _auth: AuthService, private _router: Router, private _route: ActivatedRoute) { }
 
@@ -41,7 +41,7 @@ export class HomeComponent {
 
   logout() {
     this._auth.clearStorage();
-    this.isLogin = true;
-    this._router.navigate(['home']), { relativeTo: this._route };
+    this.isLogin = false;
+    this._router.navigate(['login']), { relativeTo: this._route };
   }
 }

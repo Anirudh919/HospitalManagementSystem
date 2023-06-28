@@ -57,7 +57,7 @@ export class DoctorEditComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
+    console.log(this.editForm.value);
     if (!this.editForm.valid) {
       return false;
     } else {

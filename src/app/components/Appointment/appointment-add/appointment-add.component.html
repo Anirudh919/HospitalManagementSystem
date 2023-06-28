@@ -2,14 +2,33 @@
     <form class="row g-3" [formGroup]="AppointmentForm" (ngSubmit)="onSubmit()">
         <div class="col-md-6">
             <label for="inputename" class="form-label">Patient Name</label>
-            <select class="form-control" formControlName="PatientID">
+            <input type="text" class="form-control" formControlName="PatientName">
+            <!-- <select class="form-control" formControlName="PatientID">
                 <option *ngFor="let patient of PatientDetail" value="{{ patient.PatientID}}">
                     {{patient.PatientName}}
                 </option>
-            </select>
+            </select> -->
         </div>
 
-
+        <div class="col-md-6">
+            <label for="inputSalary" class="form-label">Address</label>
+            <input type="text" class="form-control" formControlName="Address" />
+        </div>
+        <div class="col-md-6">
+            <label for="inputSalary" class="form-label">Phone Number</label>
+            <input type="number" class="form-control" formControlName="PhoneNumber" />
+        </div>
+        <div class="col-md-6">
+            <label for="inputSalary" class="form-label">Gender</label>
+            <select class="form-control" formControlName="Gender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label for="inputSalary" class="form-label">DOB</label>
+            <input type="date" class="form-control" formControlName="DateOfBirth" />
+        </div>
         <div class="col-md-6">
             <label for="inputhiredate" class="form-label">Doctor Name</label>
             <select class="form-control" formControlName="DoctorID">
@@ -34,7 +53,10 @@
             </select>
         </div>
         <div class="col-12">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary me-2">Submit</button>
+            <button type="button" class="btn btn-secondary " (click)="Clear()">Reset</button>
+        </div>
+        <div class="col-12">
         </div>
     </form>
 </div>

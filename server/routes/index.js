@@ -56,6 +56,16 @@ router.get("/doctorsdetail", async (req, res) => {
   }
 });
 
+router.get("/medicalsdetail", async (req, res) => {
+  try {
+    let result = await db.MedicalsDetail();
+    console.log(result);
+    res.json(result);
+  } catch (e) {
+    res.sendStatus(500);
+  }
+});
+
 router.get("/doctorsdetailbyid", async (req, res) => {
   try {
     let result = await db.DoctorsDetailbyID();
@@ -86,11 +96,30 @@ router.get("/appointmentsdetail", async (req, res) => {
   }
 });
 
-router.put("/addappointment", async (req, res) => {
+router.post("/addappointment", async (req, res) => {
   try {
     let result = await db.AddAppointment(req.body);
     res.json(result);
   } catch (err) {
+    res.sendStatus(500);
+  }
+});
+
+router.post("/addpatient", async (req, res) => {
+  try {
+    let result = await db.AddPatient(req.body);
+    res.json(result);
+  } catch (err) {
+    res.sendStatus(500);
+  }
+});
+
+router.post("/addfeedback", async (req, res) => {
+  try {
+    let result = await db.AddFeedback(req.body);
+    res.json(result);
+  } catch (err) {
+    console.log("113", err);
     res.sendStatus(500);
   }
 });

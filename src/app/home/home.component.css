@@ -13,4 +13,18 @@ swiper {
     background-color: #4ADEDE;
   }
 
+  nav ul>a:hover{
+    animation-name: text_fadein;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+  }
   
+  nav ul>li:hover span{
+    cursor: default;
+  }
+  
+  nav ul>a:hover>li{
+    animation-name: menu_fadein;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+  }

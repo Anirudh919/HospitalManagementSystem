@@ -18,6 +18,7 @@ import { AppointmentDetailComponent } from './components/Appointment/appointment
 import { AppointmentAddComponent } from './components/Appointment/appointment-add/appointment-add.component';
 import { DatePipe } from '@angular/common';
 import { FrontViewComponent } from './front-view/front-view.component';
+import { MedicalDetailsComponent } from './components/MecicalHistory/medical-details/medical-details.component';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { FrontViewComponent } from './front-view/front-view.component';
     AppointmentDetailComponent,
     AppointmentAddComponent,
     FrontViewComponent,
+    MedicalDetailsComponent,
 
   ],
   imports: [

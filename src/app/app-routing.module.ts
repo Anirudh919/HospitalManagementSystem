@@ -11,6 +11,8 @@ import { AppointmentAddComponent } from './components/Appointment/appointment-ad
 import { DoctorEditComponent } from './components/Doctors/doctor-edit/doctor-edit.component';
 import { PatientEditComponent } from './components/Patients/patient-edit/patient-edit.component';
 import { FrontViewComponent } from './front-view/front-view.component';
+import { MedicalDetailsComponent } from './components/MecicalHistory/medical-details/medical-details.component';
+import { PatientCreateComponent } from './components/Patients/patient-create/patient-create.component';
 
 
 const routes: Routes = [
@@ -30,16 +32,18 @@ const routes: Routes = [
       [
         { path: 'frontview', component: FrontViewComponent },
         { path: 'patient', component: PatientDetailComponent },
+        { path: 'addpatient', component: PatientCreateComponent },
         { path: 'patient/edit/:id', component: PatientEditComponent },
         { path: 'doctor', component: DoctorDetailComponent },
         { path: 'doctor/edit/:id', component: DoctorEditComponent },
         { path: 'appointment', component: AppointmentDetailComponent },
-        { path: 'addappointment', component: AppointmentAddComponent },],
+        { path: 'addappointment', component: AppointmentAddComponent },
+        { path: 'medicalhistory', component: MedicalDetailsComponent }],
 
   },
-  { path: '**', redirectTo: 'login' },
   { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent }
+  { path: 'login', component: LoginComponent },
+  { path: '**', redirectTo: 'login' },
 ]
 
 // { path: 'login', component: LoginComponent },
